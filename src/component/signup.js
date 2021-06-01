@@ -1,4 +1,5 @@
 import {Component} from "react";
+import {useState} from "react"
 class Login extends Component {
 
 	constructor (props) {
@@ -10,6 +11,7 @@ class Login extends Component {
 			error_msg: '',
 			error_name_msg: '',
 		}
+			console.log();
 	}
 	like = () => {
 		this.setState({
@@ -64,6 +66,11 @@ class Login extends Component {
 			name : event.target.value
 		});
 	}
+	login = (e) => {
+		e.preventDefault();
+		this.props.calllme();
+	}
+
 	render () {
 		return (
 			<div className="container">
@@ -74,6 +81,8 @@ class Login extends Component {
 
 							<label>{this.state.likes}</label>
 							<button onClick={this.like} className="btn btn-sm btn-info">Like</button>
+
+							<button onClick={this.login} className="btn btn-sm btn-info">Login</button>
 						</div>
 					</div>
 				</div>
