@@ -9,7 +9,7 @@ function Cake(props) {
 				<img style={{height: "15rem" }} src={props.data.image ? props.data.image : "No_picture_available.png"} className="card-img-top" alt="" /> 
 				<div className="card-body">
 				<h5 className="card-title">{props.data.name }</h5>
-				<p> {props.data.price}</p>
+				<p> Price : {props.data.price}</p>
 				
 				</div>
 			</div>

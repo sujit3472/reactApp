@@ -3,7 +3,7 @@ import Carousel from './component/Carousel.js';
 import Signup from './component/signup.js';
 import Cake from './component/cake.js';
 import Cakelist from './component/cakelist.js';
-import {useState} from "react"
+import {useState, useEffect} from "react"
 
 
 
@@ -14,6 +14,14 @@ function App() {
 		setLogin(true);
 		
 	}
+
+	var [likes, setLikes] 	    = useState(0);
+	var [dislikes, setDislikes] = useState(0);
+	var [maxdislike, setMaxlikes]  = useState(0);
+
+	useEffect(() => {
+		alert("view render")
+	}, [maxdislike])
 	var details = {projectname : "React app", username : "Tester"};
 
 	var Product = {
@@ -25,7 +33,11 @@ function App() {
   	return (
     	<div className="App">
 	    	<Navbar details={details} name="Sujit" phone="8308254902" isloggedin={login}><label>Neo Devs</label></Navbar>
+	    	{likes}<button className="btn btn-info" onClick={()=>{setLikes(likes+1)}}>Like</button>
+	    	<button className="btn btn-warning" onClick={()=>{setDislikes(dislikes+1); if(dislikes <= 5) { setMaxlikes(maxdislike+1);}}}>Dis Like</button>{ dislikes}
+	    	
 	    	<Carousel></Carousel>
+
 	    	<Signup calllme={myphone}  />
 
 	    	<div className="row">
