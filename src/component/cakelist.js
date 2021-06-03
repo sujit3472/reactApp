@@ -26,7 +26,7 @@ function Cakelist() {
 			{cakes.map((each, index) =>  {
 				return (<Cake data={each} key={index} />)
 			})}
-		{isloading && <h1>Loading.....</h1>}
+		{isloading && <h1 className="text-center m-5">Loading.....</h1>}
 		</div>
 	)
 	
