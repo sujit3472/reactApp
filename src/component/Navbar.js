@@ -1,8 +1,8 @@
 import {useState, useEffect} from "react"
+import {Link} from "react-router-dom"
 
 let Navbar = (prop) => {
 
-	console.log(prop.isloggedin);
 	var [isloggedin, setUser] = useState()
 	useEffect(() => {
 	  		setUser(prop.isloggedin)
@@ -26,7 +26,7 @@ let Navbar = (prop) => {
 	let searchTest = (event) => {
 		event.preventDefault();
 		searchstring = event.target.value;
-			console.log(searchstring);
+		console.log(searchstring);
 	}
 
 	let logout = () => {
@@ -46,7 +46,7 @@ let Navbar = (prop) => {
 	}*/
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
-			<a className="navbar-brand" href="#">{prop.details.projectname }</a>
+			<Link to="/"><button className="navbar-brand" >{prop.details.projectname }</button></Link>
 			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>
 			</button>
@@ -54,7 +54,7 @@ let Navbar = (prop) => {
 			<div className="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul className="navbar-nav mr-auto">
 					<li className="nav-item active">
-					<a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+					<Link to="/"><button className="nav-link">Home <span className="sr-only">(current)</span></button></Link>
 					</li>
 					<li className="nav-item">
 					<a className="nav-link" href="#">Welcome {prop.name}</a>
@@ -69,7 +69,8 @@ let Navbar = (prop) => {
 					<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={searchTest}/>
 					{searchstring}
 					<button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={search}>Search</button>
-					{ !isloggedin && <button className="btn btn-outline-success" >Login</button> } 
+					{ !isloggedin && <Link to="/signup"><button className="btn btn-outline-success" >Signup</button></Link> } 
+					<Link to="/login"><button className="btn btn-outline-success">Login</button></Link>
 					{ isloggedin &&  <button className="btn btn-outline-success" onClick={logout}>Logout</button> }
 				</form>
 			</div>
