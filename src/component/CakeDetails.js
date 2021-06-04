@@ -5,6 +5,7 @@ import axios from 'axios'
 function CakeDetails(props) {
 	var params = useParams();
 	var [cakeData, setCakeDetails] = useState([]);
+	var [isloading, setLoading]    = useState(true);
 	useEffect(() => {
 		axios({
 			url : 'https://apibyashu.herokuapp.com/api/cake/'+params.cakeid,
@@ -13,16 +14,20 @@ function CakeDetails(props) {
 		).then((response) => {
 			//console.log(response.data.data);
 			setCakeDetails(response.data.data);
+			setLoading(false);
 		}, (error) => {
-
+			setLoading(false);
 		}); 
 	}, []);
 		
 	var isDataAvailble = cakeData ? true : false;
 	return (
 		<>
-		{isDataAvailble &&  <h1>Cake Details for { params.cakeid}</h1>	}
-			{isDataAvailble && <div className="row">
+		{isloading && <h1 className="text-center m-5">Loading.....</h1>}
+		{isDataAvailble &&  <h1 className="text-center">Cake Details for { params.cakeid}</h1>	}
+			{isDataAvailble && 
+				<div className="container">
+				<div className="row">
 				<div className="col-md-6">	
 					<p> Name : {cakeData.name} </p> 	
 					<p> Price : {cakeData.price} </p>	
@@ -33,6 +38,7 @@ function CakeDetails(props) {
 				<div className="col-md-6">	
 					<img style={{height: "15rem" }} src={cakeData.image ? cakeData.image : "No_picture_available.png"} className="card-img-top" alt="" />
 				</div>
+			</div>
 			</div> }
 			{!isDataAvailble && <h1 className="text-center m-5">No data found for { params.cakeid}</h1>}
 		</>
