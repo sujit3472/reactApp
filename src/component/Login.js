@@ -20,7 +20,7 @@ class Login extends Component {
 		var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		var checkEmail =  this.state.email;
 		var password = this.state.password;
-		if(password == '' || password == 'undefined') {
+		if(password === '' || password === 'undefined') {
 			this.setState({
 		  		error_password_msg : "Please Enter the Password"
 		  	});
@@ -30,7 +30,7 @@ class Login extends Component {
 		  	});
 		}
 		//validation for email
-		if(checkEmail == '' || checkEmail == 'undefined')
+		if(checkEmail === '' || checkEmail === 'undefined')
 		{
 			this.setState({
 		  		error_msg : "Please Enter the email Id"
@@ -49,7 +49,7 @@ class Login extends Component {
 		}	
 		
 		//return false;
-		if(password != '' && checkEmail != '') {
+		if(password !== '' && checkEmail !== '') {
 			axios({
 				url : 'https://apibyashu.herokuapp.com/api/login', 
 				method : "post", 

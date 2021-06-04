@@ -29,7 +29,7 @@ class Signup extends Component {
 		var userName = this.state.name;
 		var password = this.state.password;
 		//validation for user name
-		if(userName == '' || userName == 'undefined') {
+		if(userName === '' || userName === 'undefined') {
 			this.setState({
 		  		error_name_msg : "Please Enter the Name"
 		  	});
@@ -39,7 +39,7 @@ class Signup extends Component {
 		  	});
 		}
 
-		if(password == '' || password == 'undefined') {
+		if(password === '' || password === 'undefined') {
 			this.setState({
 		  		error_password_msg : "Please Enter the Password"
 		  	});
@@ -49,7 +49,7 @@ class Signup extends Component {
 		  	});
 		}
 		//validation for email
-		if(checkEmail == '' || checkEmail == 'undefined')
+		if(checkEmail === '' || checkEmail === 'undefined')
 		{
 			this.setState({
 		  		error_msg : "Please Enter the email Id"
@@ -68,7 +68,7 @@ class Signup extends Component {
 		}	
 		console.log(userName, password, checkEmail);
 			//return false;
-		if(userName !='' && password != '' && checkEmail != '') {
+		if(userName !=='' && password !== '' && checkEmail !== '') {
 			axios({
 				url : 'https://apibyashu.herokuapp.com/api/register', 
 				method : "post", 

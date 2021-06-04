@@ -1,7 +1,10 @@
 import {useState, useEffect} from "react"
-import {Link} from "react-router-dom"
+import {Link, withRouter} from "react-router-dom"
+import axios from 'axios';
+
 
 let Navbar = (prop) => {
+	//console.log(prop.history);
 
 	var [isloggedin, setUser] = useState()
 	useEffect(() => {
@@ -14,13 +17,29 @@ let Navbar = (prop) => {
 
 	//let [loginbtn, setLogin] = useState("Login");
 	// console.log(prop);
-	let searchstring = 'Test';
+	let searchstring = '';
 	let search = (event) => {
 		event.preventDefault();
-		/*console.log("search here");
-		console.log(searchstring);*/
-		console.log(searchstring);
-		// this.setState({searchstring: searchstring})
+		//console.log(searchstring);
+		// var redirectUrl = ; 
+		if(searchstring !== '') {
+			axios({
+				url : 'https://apibyashu.herokuapp.com/api/searchcakes?q='+searchstring, 
+				method : "get", 
+				data:JSON}
+			).then((response) => {
+				
+				prop.history.push({
+		           pathname: '/search',
+		           search: '?q=' + searchstring,
+		           state: response.data
+		       });
+			}, (error) => {
+				console.log(error);
+
+			});
+			// prop.history.push('/search?q=' + searchstring);
+		}
 
 	}
 	let searchTest = (event) => {
@@ -78,4 +97,4 @@ let Navbar = (prop) => {
 	);
 }
 
-export default Navbar;
+export default withRouter(Navbar);
