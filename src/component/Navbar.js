@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 let Navbar = (prop) => {
-	//console.log(prop.history);
+	console.log(prop.isloggedin);
 
 	var [isloggedin, setUser] = useState()
 	useEffect(() => {
@@ -24,7 +24,7 @@ let Navbar = (prop) => {
 		// var redirectUrl = ; 
 		if(searchstring !== '') {
 			axios({
-				url : 'https://apibyashu.herokuapp.com/api/searchcakes?q='+searchstring, 
+				url : process.env.REACT_APP_BASE_URL+'/searchcakes?q='+searchstring, 
 				method : "get", 
 				data:JSON}
 			).then((response) => {
@@ -89,7 +89,7 @@ let Navbar = (prop) => {
 					{searchstring}
 					<button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={search}>Search</button>
 					{ !isloggedin && <Link to="/signup"><button className="btn btn-outline-success" >Signup</button></Link> } 
-					<Link to="/login"><button className="btn btn-outline-success">Login</button></Link>
+					{ !isloggedin && <Link to="/login"><button className="btn btn-outline-success">Login</button></Link>}
 					{ isloggedin &&  <button className="btn btn-outline-success" onClick={logout}>Logout</button> }
 				</form>
 			</div>

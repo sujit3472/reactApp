@@ -70,7 +70,7 @@ class Signup extends Component {
 			//return false;
 		if(userName !=='' && password !== '' && checkEmail !== '') {
 			axios({
-				url : 'https://apibyashu.herokuapp.com/api/register', 
+				url : process.env.REACT_APP_BASE_URL+'/register', 
 				method : "post", 
 				data:{'name': userName, 'password':password, 'email': checkEmail}}
 			).then((response) => {

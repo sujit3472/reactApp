@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import React, {Suspense, useState, useEffect} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Navbar from './component/Navbar.js';
 import Signup from './component/signup.js';
@@ -7,10 +7,16 @@ import Pagenotfound from './component/pagenotfound.js'
 import Login from './component/Login.js'
 import Search from './component/Search.js'
 import CakeDetails from './component/CakeDetails.js'
+// import Cart from './component/Cart.js'
+import Checkout from './component/Checkout.js'
+import axios from 'axios';
 
 
 function App() {
 	var [login, setLogin] = useState(false)
+	var Cart = React.lazy(() => import('./component/Cart.js'));
+	Cart = <Suspense fallback={ <div> Loading..... </div>}><Cart></Cart></Suspense>
+	
 	/*var myphone = () => {
 		setLogin(true);
 		
@@ -24,7 +30,30 @@ function App() {
 		//alert("view render")
 	}, [maxdislike])*/
 	var details = {projectname : "React app", username : "Tester"};
+	console.log(localStorage.getItem('userAccessToken'));
+		
+	useEffect(() => {
+		if(localStorage.getItem('userAccessToken')) {
+			axios({
+				method : 'get',
+				url : process.env.REACT_APP_BASE_URL + '/getuserdetails',
+				headers:{
+					authtoken : localStorage.getItem('userAccessToken')
+				}
+			}).then((response) =>  {
+				if(response.data.data.token) {
+					console.log("token valid");
+					setLogin(true);
+				} 
+				else {
+					setLogin(false);	
+				} 
+			}, (error) => {
 
+			}) 
+		} 
+
+	}, []);
 	
   	return (
     	<div className="App">
@@ -38,6 +67,8 @@ function App() {
 		    	<Route exact path="/login" component={Login}></Route>
 		    	<Route exact path="/search" component={Search}></Route>
 		    	<Route exact path="/cake/:cakeid" component={CakeDetails}></Route> 
+		    	<Route exact path="/cart/" >{Cart}</Route> 
+		    	<Route path="/checkout"><Checkout/></Route> 
 		    	<Route exact path="/*" component={Pagenotfound}></Route>
 			</Switch>
 	    	</Router>

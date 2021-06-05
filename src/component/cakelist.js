@@ -8,7 +8,7 @@ function Cakelist() {
 	var [isloading, setLoading] = useState(true);
 	
 	useEffect(() => {
-		axios({method : "get", url : 'https://apibyashu.herokuapp.com/api/allcakes', data:JSON}).then((response) => {
+		axios({method : "get", url : process.env.REACT_APP_BASE_URL +'/allcakes', data:JSON}).then((response) => {
 			// console.log();
 			setCakes(response.data.data);
 			setLoading(false);

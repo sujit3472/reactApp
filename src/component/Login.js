@@ -51,11 +51,13 @@ class Login extends Component {
 		//return false;
 		if(password !== '' && checkEmail !== '') {
 			axios({
-				url : 'https://apibyashu.herokuapp.com/api/login', 
+				url : process.env.REACT_APP_BASE_URL+'/login', 
 				method : "post", 
 				data:{'password':password, 'email': checkEmail}}
 			).then((response) => {
-				console.log();
+				// console.log(response.data.token);
+				localStorage.setItem('userAccessToken', response.data.token);
+				// localStorage.userAccessToken = response.data.token;
 				if(response.data.message)
 					alert(response.data.message);
 				else {

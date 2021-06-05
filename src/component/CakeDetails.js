@@ -8,7 +8,7 @@ function CakeDetails(props) {
 	var [isloading, setLoading]    = useState(true);
 	useEffect(() => {
 		axios({
-			url : 'https://apibyashu.herokuapp.com/api/cake/'+params.cakeid,
+			url : process.env.REACT_APP_BASE_URL+'/cake/'+params.cakeid,
 			method : 'get',
 			data : JSON}
 		).then((response) => {
