@@ -17,7 +17,7 @@ function App() {
 	var Cart = React.lazy(() => import('./component/Cart.js'));
 	Cart = <Suspense fallback={ <div> Loading..... </div>}><Cart></Cart></Suspense>
 	
-	/*var myphone = () => {
+	{/*var myphone = () => {
 		setLogin(true);
 		
 	}
@@ -28,9 +28,9 @@ function App() {
 
 	useEffect(() => {
 		//alert("view render")
-	}, [maxdislike])*/
+	}, [maxdislike])*/}
 	var details = {projectname : "React app", username : "Tester"};
-	console.log(localStorage.getItem('userAccessToken'));
+	// console.log(localStorage.getItem('userAccessToken'));
 		
 	useEffect(() => {
 		if(localStorage.getItem('userAccessToken')) {
