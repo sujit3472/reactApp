@@ -1,11 +1,11 @@
 import {useState, useEffect} from "react"
 import {Link, withRouter} from "react-router-dom"
 import axios from 'axios';
-
+import { connect } from "react-redux"
 
 let Navbar = (prop) => {
-	console.log(prop.isloggedin);
-
+	
+	// alert("In nav");
 	var [isloggedin, setUser] = useState()
 	useEffect(() => {
 	  		setUser(prop.isloggedin)
@@ -51,7 +51,13 @@ let Navbar = (prop) => {
 	let logout = () => {
 		// console.log("in logout");
 		setUser(false);
-		localStorage.clear();
+		prop.dispatch({
+			type : "LOGOUT",
+			payload : {
+				token : ''
+			}
+		})
+		// localStorage.clear();
 		//prop.isloggedin = false;
 		console.log(" In logout",  isloggedin);
 	}
@@ -65,7 +71,7 @@ let Navbar = (prop) => {
 	}*/
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
-			<Link to="/"><button className="navbar-brand" >{prop.details.projectname }</button></Link>
+			<Link to="/"><button className="navbar-brand" >{prop.details.projectname } {prop.username }</button></Link>
 			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>
 			</button>
@@ -88,13 +94,28 @@ let Navbar = (prop) => {
 					<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={searchTest}/>
 					{searchstring}
 					<button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={search}>Search</button>
-					{ !isloggedin && <Link to="/signup"><button className="btn btn-outline-success" >Signup</button></Link> } 
-					{ !isloggedin && <Link to="/login"><button className="btn btn-outline-success">Login</button></Link>}
-					{ isloggedin &&  <button className="btn btn-outline-success" onClick={logout}>Logout</button> }
+					{ !prop.isloggedin && <Link to="/signup"><button className="btn btn-outline-success" >Signup</button></Link> } 
+					{ !prop.isloggedin && <Link to="/login"><button className="btn btn-outline-success">Login</button></Link>}
+					{ prop.isloggedin &&  <button className="btn btn-outline-success" onClick={logout}>Logout</button> }
 				</form>
 			</div>
 		</nav>
 	);
 }
 
-export default withRouter(Navbar);
+// export default withRouter(Navbar);
+function mapStatetoProps(state, prop) {
+	return {
+		...prop,
+		isloggedin : state['isloggedin']
+
+	}
+}
+Navbar = withRouter(Navbar)
+export default connect((state) =>{
+	return {
+
+		isloggedin: state.AuthReducer.isloggedin,
+		username: state.AuthReducer.username
+	}
+})(Navbar)

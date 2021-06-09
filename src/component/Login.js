@@ -1,6 +1,7 @@
 import {Component} from "react";
 import {useState} from "react";
 import axios from 'axios';
+import { connect } from "react-redux"
 class Login extends Component {
 
 	constructor (props) {
@@ -62,6 +63,13 @@ class Login extends Component {
 					alert(response.data.message);
 				else {
 					alert("Login successfully");
+					this.props.dispatch({
+						type: "LOGIN",
+						payload : {
+							token : response.data.token,
+							username : response.data.name
+						}
+					})
 					this.props.history.push('/');
 				}
 			}, (error) => {
@@ -110,4 +118,5 @@ class Login extends Component {
 	}
 }
 
-export default Login;
+
+export default connect()(Login)
