@@ -2,6 +2,8 @@ import {Component} from "react";
 import {useState} from "react";
 import axios from 'axios';
 import { connect } from "react-redux"
+import {loginmiddleware} from "../reduxstore/middlewares"
+import {withRouter} from "react-router-dom"
 class Login extends Component {
 
 	constructor (props) {
@@ -13,7 +15,7 @@ class Login extends Component {
 			error_msg: '',
 			error_password_msg : ''
 		}
-			console.log();
+		console.log();
 	}
 	
 	validation = () => {
@@ -51,31 +53,7 @@ class Login extends Component {
 		
 		//return false;
 		if(password !== '' && checkEmail !== '') {
-			axios({
-				url : process.env.REACT_APP_BASE_URL+'/login', 
-				method : "post", 
-				data:{'password':password, 'email': checkEmail}}
-			).then((response) => {
-				// console.log(response.data.token);
-				localStorage.setItem('userAccessToken', response.data.token);
-				// localStorage.userAccessToken = response.data.token;
-				if(response.data.message)
-					alert(response.data.message);
-				else {
-					alert("Login successfully");
-					this.props.dispatch({
-						type: "LOGIN",
-						payload : {
-							token : response.data.token,
-							username : response.data.name
-						}
-					})
-					this.props.history.push('/');
-				}
-			}, (error) => {
-				console.log(error);
-
-			});
+			this.props.dispatch(loginmiddleware(this.state));	
 		} 
 	}
 	verifyEmail = (event) => {
@@ -112,11 +90,25 @@ class Login extends Component {
 					<div className="col-xs-12 col-sm-12 col-md-12 text-center">
 					<button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.validation}>Submit</button>
 					</div>
+					{this.props.isloading &&  <h1>Loading ......</h1> }
 				</div>
 			</div>
 		)
 	}
 }
 
+Login = withRouter(Login)
 
-export default connect()(Login)
+Login = connect(function (state, props) {
+	//alert("props" + JSON.stringify(props))
+	if(state.AuthReducer?.isloggedin) {
+		
+		props.history.push('/')
+	} else {
+		return {
+			isloading: state.AuthReducer?.isloading
+		}
+	}
+})(Login)
+
+export default Login

@@ -11,7 +11,7 @@ function Cake(props) {
 				<div className="card-body">
 				<h5 className="card-title">{props.data.name }</h5>
 				<p> Price : {props.data.price}</p>
-				
+				{props.data.quantity ? <p> quantity :  {props.data.quantity }</p> : '' }
 				</div>
 			</div>
 		)	

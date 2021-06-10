@@ -5,14 +5,26 @@ function AuthReducer(state ={
 }, action) {
 
 	switch(action.type) {
-		case "LOGIN" : {
+		case "LOGIN_STARTED" : {
+			state = { ...state}
+			state['isloading'] = true
+			return state
+		}  
+
+		case "LOGIN_SUCCESS" : {
 			state = {...state}
 			state['token'] = action.payload?.token
 			state.isloggedin = true
 			state.username = action.payload?.username
+			state.isloading = false
 			// alert(state.token);
 			return state 
 		}
+		case "LOGIN_FAILURE" : {
+			state = { ...state}
+			state['isloading'] = false
+			return state
+		} 
 		case "LOGOUT" : {
 			state = {...state}
 			localStorage.clear()
