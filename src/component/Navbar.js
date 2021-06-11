@@ -93,10 +93,10 @@ let Navbar = (prop) => {
 				<form className="form-inline my-2 my-lg-0">
 					<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={searchTest}/>
 					{searchstring}
-					<button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={search}>Search</button>
-					{ !prop.isloggedin && <Link to="/signup"><button className="btn btn-outline-success" >Signup</button></Link> } 
-					{ !prop.isloggedin && <Link to="/login"><button className="btn btn-outline-success">Login</button></Link>}
-					{ prop.isloggedin &&  <button className="btn btn-outline-success" onClick={logout}>Logout</button> }
+					<button className="btn btn-outline-success my-2 my-sm-0 m-2" type="submit" onClick={search}>Search</button>
+					{ !prop.isloggedin && <Link to="/signup"><button className="btn btn-outline-success m-2" >Signup</button></Link> } 
+					{ !prop.isloggedin && <Link to="/login"><button className="btn btn-outline-success m-2">Login</button></Link>}
+					{ prop.isloggedin &&  <button className="btn btn-outline-success m-2" onClick={logout}>Logout</button> }
 				</form>
 			</div>
 		</nav>

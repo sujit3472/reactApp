@@ -20,7 +20,7 @@ function Cakelist() {
 	  		
 	},[]);
 	return (
-			
+		
 		<div className="row">
 
 			{cakes.map((each, index) =>  {

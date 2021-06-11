@@ -13,6 +13,10 @@ import axios from 'axios';
 
 
 function App() {
+	axios.interceptors.request.use((request)=>{
+		request.headers['authtoken'] = localStorage.userAccessToken
+		return request
+	})
 	var [login, setLogin] = useState(false)
 	var Cart = React.lazy(() => import('./component/Cart.js'));
 	Cart = <Suspense fallback={ <div> Loading..... </div>}><Cart></Cart></Suspense>

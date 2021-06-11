@@ -10,7 +10,7 @@ function CakeDetails(props) {
 	var params = useParams();
 	var [cakeData, setCakeDetails] = useState([]);
 	var [isloading, setLoading]    = useState(true);
-	var dispatch = useDispatch()
+	//var dispatch = useDispatch()
 	useEffect(() => {
 		axios({
 			url : process.env.REACT_APP_BASE_URL+'/cake/'+params.cakeid,
@@ -26,7 +26,7 @@ function CakeDetails(props) {
 	}, []);
 
 	let addToCart = () => {
-		dispatch(cartmiddleware(cakeData));	
+		props.dispatch(cartmiddleware(cakeData));	
 	}
 		
 	var isDataAvailble = cakeData ? true : false;

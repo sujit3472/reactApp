@@ -2,7 +2,7 @@ import {Link} from "react-router-dom"
 import axios from "axios"
 import {useEffect,useState} from "react"
 import Cake from './cake';
-
+import {withRouter} from "react-router-dom"
 function Cart(props) {
 	var [cartData, setCartData] = useState([]);
 	
@@ -11,9 +11,6 @@ function Cart(props) {
 			url:process.env.REACT_APP_BASE_URL+'/cakecart',
 			method:"post",
 			data:JSON,
-			headers:{
-				authtoken : localStorage.getItem('userAccessToken')
-			},
 		}).then((response)=>{
 			// console.log(response.data.data);
 			if(response.data.data) {
@@ -51,4 +48,4 @@ function Cart(props) {
 	)
 }
 
-export default Cart
+export default withRouter(Cart)

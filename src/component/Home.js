@@ -14,11 +14,13 @@ function Home (props) {
 		<div>
 		<Carousel></Carousel>
 		<h1 className="text-center">In Home page</h1>
-    	<div className="row">
-	    	<Cake data={Product}  key="123"/>
-	    	<Cake data={Product1} key="125" />
-    	</div>
-    	<Cakelist />
+    	<div className="container">
+	    	<div className="row">
+		    	<Cake data={Product}  key="123"/>
+		    	<Cake data={Product1} key="125" />
+	    	</div>
+    		<Cakelist />
+		</div>
 		</div>
 	)
 }

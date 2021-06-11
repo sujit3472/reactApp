@@ -1,15 +1,15 @@
 import axios from "axios";
 
-export function cartmiddleware (data) {
+export function cartremovemitemiddleware (data) {
 	
 	return function (dispatch) {
 		dispatch({
 			type : "CART_ADD_STARTED"
 		})
 		axios({
-			url : process.env.REACT_APP_BASE_URL+'/addcaketocart',
+			url : process.env.REACT_APP_BASE_URL+'/removecakefromcart',
 			method : 'post',
-			data : {'cakeid' : data.cakeid, 'name': data.name, 'image' : data.image, 'price' : data.price, 'weight': data.weight }
+			data : {'cakeid' : data.cakeid}
 			}
 		).then((response) => {
 			if(response.data === 'Session Expired') {
@@ -18,10 +18,11 @@ export function cartmiddleware (data) {
 					type : "CART_ADD_FAIL"
 				});
 			}
-			if(response.data.data) {
-				alert("Cake added into the cart")
+			console.log('in cart remove middleware',response.data);
+			if(response.data.message) {
+				alert("Cake removed  from cart")
 				dispatch({
-					type:"ADDTOCART",
+					type:"REMOVECARTTEM",
 					payload : {
 						cart : response.data.data
 					}
