@@ -9,7 +9,7 @@ import {withRouter} from "react-router-dom"
 
 
 function Cake(props) {
-	
+	//console.log("cake props", props.index);
 	var [cakeQty, setCakeQty] = useState(props.data.quantity);
 	var dispatch = useDispatch();
 
@@ -17,7 +17,6 @@ function Cake(props) {
 		event.preventDefault();
 		dispatch(cartmiddleware(props.data));
 		setCakeQty(cakeQty + 1)			
-		
 	}
 
 	let decreaseQty = (event) => {
@@ -31,7 +30,7 @@ function Cake(props) {
 	}
 	let removeItem = (event) => {
 		event.preventDefault();
-		dispatch(cartremovemitemiddleware(props.data))
+		dispatch(cartremovemitemiddleware(props))
 		setCakeQty(0)
 	}
 
@@ -68,23 +67,5 @@ function Cake(props) {
 	
 }
 
-Cake = withRouter(Cake)
-
-Cake = connect(function (state, props) {
-	// alert(JSON.stringify(props))
-		//console.log("in connect props", props);
-		//console.log("in connect state", state.CartReducer.cartitemremovesucess);
-	if(state.CartReducer?.cartitemremovesucess) {
-		state.CartReducer.cartitemremovesucess = false;
-		state.CartReducer.isDataloading = false;
-			console.log("props.history", props.history);	
-		// props.history.push('/cart')
-	
-	} else {
-		return {
-			isDataloading: state.CartReducer?.isDataloading
-		}
-	}
-})(Cake)
 
 export default Cake

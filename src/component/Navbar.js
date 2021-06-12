@@ -94,6 +94,7 @@ let Navbar = (prop) => {
 					<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={searchTest}/>
 					{searchstring}
 					<button className="btn btn-outline-success my-2 my-sm-0 m-2" type="submit" onClick={search}>Search</button>
+					{ prop.isloggedin && <Link to="/orders"><button className="btn btn-outline-success m-2">Orders</button></Link>}
 					{ !prop.isloggedin && <Link to="/signup"><button className="btn btn-outline-success m-2" >Signup</button></Link> } 
 					{ !prop.isloggedin && <Link to="/login"><button className="btn btn-outline-success m-2">Login</button></Link>}
 					{ prop.isloggedin &&  <button className="btn btn-outline-success m-2" onClick={logout}>Logout</button> }
