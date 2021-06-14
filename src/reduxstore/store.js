@@ -2,6 +2,8 @@ import {createStore, combineReducers, applyMiddleware} from "redux"
 import AuthReducer from "./AuthReducer"
 import CartReducer from "./CartReducer"
 import thunk from "redux-thunk";
+import createSaga from "redux-saga"
+import RootSaga from "./sagas"
 
 let middle = store=>next=>action=> {
 	// alert("In middle ware" + JSON.stringify(store.getState()));

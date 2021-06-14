@@ -24,7 +24,8 @@ export function cartremovemiddleware (data) {
 				dispatch({
 					type:"REMOVECART",
 					payload : {
-						cart : response.data.data
+						cart : response.data.data,
+						cakeid : data.cakeid
 					}
 				});
 			}

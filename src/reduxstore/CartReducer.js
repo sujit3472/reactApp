@@ -44,15 +44,39 @@ function CartReducer(state ={
 		}
 		case "EMPTYCART" : {
 			state = {...state}
+			state.cart = [];
+			state.totalPrice = 0;
 			return state
 		}
 		case "REMOVECART" : {
 			state = {...state}
+
+			{state.cart && state.cart.map((item) => { 
+				//console.log(item.price);
+				if(item.cakeid == action.payload.cakeid)
+				{
+					state.totalPrice -=  ((item.price / item.quantity) * (item.quantity - 1))
+					item.quantity = (item.quantity - 1)
+				} 
+		 	});
+			}
 			return state
 		}
 		case "REMOVECARTTEM" : {
 			state = {...state}
 			
+			state.totalPrice = 0
+		   	{state.cart && state.cart.map((item) => { 
+		   		//console.log(item.price);
+		   		if(item.cakeid == action.payload.cakeid)
+		   		{
+		   			state.totalPrice -=  ((item.price / item.quantity) * (item.quantity - 1))
+		   			item.quantity = (item.quantity - 1)
+		   		} else {
+		    		state.totalPrice += item.price;
+				}
+		    	});
+		   	}
 			state.cart = state.cart.filter((item) => item.cakeid !== action.payload.cakeid);
 			state['cartitemremovesucess'] = true;
 			return state

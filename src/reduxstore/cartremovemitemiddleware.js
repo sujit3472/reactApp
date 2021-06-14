@@ -8,7 +8,7 @@ export function cartremovemitemiddleware (data) {
 			type : "CART_ADD_STARTED"
 		})
 		axios({
-			url : process.env.REACT_APP_BASE_URL+'/removecakefromcart',
+			url : process.env.REACT_APP_BASE_URL+'/removeonecakefromcart',
 			method : 'post',
 			data : {'cakeid' : data.data.cakeid}
 			}

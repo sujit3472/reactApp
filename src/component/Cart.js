@@ -30,6 +30,30 @@ function Cart(props) {
 		});
 	},[]);
 
+	let emptyCart = (event) => {
+		event.preventDefault();
+		
+		axios({
+			url:process.env.REACT_APP_BASE_URL+'/clearcart',
+			method:"post",
+			data:JSON,
+		}).then((response)=>{
+			// console.log(response);
+			if(response.data.message == 'Removed all  item from cart') {
+				dispatch({
+					type:"EMPTYCART",
+					payload : {
+						cart : []
+					}
+				});
+				alert('Removed all  item from cart');
+				//setCartData(response.data.data)
+			}
+		},(error)=>{
+			console.log(error);
+		});
+	}
+
 	var isDataAvailable = props.cart && props.cart.length > 0 ? true : false;
 
 	//var isDataAvailable =  false;
@@ -51,7 +75,8 @@ function Cart(props) {
 				{!isDataAvailable &&  <div className="col-md-10"> <h1 className="text-center">No Data found in Cart</h1></div> }
 
 				<div className="col-md-2">
-					<Link to="/checkout" className="btn btn-sm btn-info pull-right">{props.totalPrice }Checkout</Link>
+					<button  className="btn btn-sm btn-info m-2" onClick={emptyCart}>Empty Cart <i className="fa fa-shopping-cart"></i></button>
+					<Link to="/checkout" className="btn btn-sm btn-info m-2">Checkout</Link>
 				</div>		
 				
 			</div>	
