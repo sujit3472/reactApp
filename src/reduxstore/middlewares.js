@@ -15,6 +15,7 @@ export function loginmiddleware (data) {
 		).then((response) => {
 			
 			localStorage.setItem('userAccessToken', response.data.token);
+			localStorage.setItem('userEmailId', response.data.email);
 			// localStorage.userAccessToken = response.data.token;
 			if(response.data.message) {
 				alert(response.data.message);
@@ -22,6 +23,13 @@ export function loginmiddleware (data) {
 					type : "LOGIN_FAILURE"
 				});
 			} else {
+				dispatch({
+					type: "LOGIN",
+					payload : {
+						token : response.data.token,
+						username : response.data.name
+					}
+				})
 				alert("Login successfully");
 				dispatch({
 					type: "LOGIN_SUCCESS",
@@ -30,6 +38,7 @@ export function loginmiddleware (data) {
 						username : response.data.name
 					}
 				})
+
 			}
 		}, (error) => {
 			// console.log(error);

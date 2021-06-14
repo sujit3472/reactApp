@@ -95,6 +95,10 @@ let Navbar = (prop) => {
 					{searchstring}
 					<button className="btn btn-outline-success my-2 my-sm-0 m-2" type="submit" onClick={search}>Search</button>
 					{ prop.isloggedin && <Link to="/cart"><button className="btn btn-outline-success m-2"><i className="fa fa-shopping-cart" aria-hidden="true"></i></button></Link>}
+
+					{ prop.isloggedin && prop.isUserEmail && <Link to="/cart"><button className="btn btn-outline-success m-2">Admin </button></Link>}
+					
+
 					{ prop.isloggedin && <Link to="/orders"><button className="btn btn-outline-success m-2">Orders</button></Link>}
 					{ !prop.isloggedin && <Link to="/signup"><button className="btn btn-outline-success m-2" >Signup</button></Link> } 
 					{ !prop.isloggedin && <Link to="/login"><button className="btn btn-outline-success m-2">Login</button></Link>}
@@ -115,9 +119,13 @@ function mapStatetoProps(state, prop) {
 }
 Navbar = withRouter(Navbar)
 export default connect((state) =>{
+	let isUserEmail = false;
+	if(localStorage.getItem('userEmailId') == 'sujit3472shinde@gmail.com' || localStorage.getItem('userEmailId') == 'ashu.lekhi0540@gmail.com') {
+		isUserEmail = true
+	}
 	return {
-
 		isloggedin: state.AuthReducer.isloggedin,
-		username: state.AuthReducer.username
+		username: state.AuthReducer.username,
+		isUserEmail : isUserEmail
 	}
 })(Navbar)

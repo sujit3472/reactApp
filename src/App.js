@@ -10,6 +10,7 @@ import CakeDetails from './component/CakeDetails.js'
 // import Cart from './component/Cart.js'
 import Checkout from './component/Checkout.js'
 import Orders from './component/Orders.js'
+import AddCake from './component/AddCake.js'
 import axios from 'axios';
 
 
@@ -75,6 +76,7 @@ function App() {
 		    	<Route exact path="/cart/" >{Cart}</Route> 
 		    	<Route path="/checkout"><Checkout/></Route> 
 		    	<Route exact path="/orders" component={Orders}></Route> 
+		    	<Route exact path="/admin/addcake" component={AddCake}></Route> 
 		    	<Route exact path="/*" component={Pagenotfound}></Route>
 			</Switch>
 	    	</Router>

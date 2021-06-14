@@ -1,6 +1,7 @@
 import {createStore, combineReducers, applyMiddleware} from "redux"
 import AuthReducer from "./AuthReducer"
 import CartReducer from "./CartReducer"
+import CakeReducer from "./CakeReducer"
 import thunk from "redux-thunk";
 import createSaga from "redux-saga"
 import RootSaga from "./sagas"
@@ -12,10 +13,13 @@ let middle = store=>next=>action=> {
 	next(action)
 }  
 
-var reducer = combineReducers({AuthReducer, CartReducer})
-let store   = createStore(reducer, applyMiddleware(middle, thunk))
+var sagaMiddleware = createSaga();
+
+var reducer = combineReducers({AuthReducer, CartReducer, CakeReducer})
+let store   = createStore(reducer, applyMiddleware(middle, thunk, sagaMiddleware))
 
 
+sagaMiddleware.run(RootSaga);
 
 /*store.subscribe(() => {
     if (store.getState().action.indexOf('SETCARTDATA') !== -1) {
