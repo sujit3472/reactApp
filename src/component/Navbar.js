@@ -96,7 +96,7 @@ let Navbar = (prop) => {
 					<button className="btn btn-outline-success my-2 my-sm-0 m-2" type="submit" onClick={search}>Search</button>
 					{ prop.isloggedin && <Link to="/cart"><button className="btn btn-outline-success m-2"><i className="fa fa-shopping-cart" aria-hidden="true"></i></button></Link>}
 
-					{ prop.isloggedin && prop.isUserEmail && <Link to="/cart"><button className="btn btn-outline-success m-2">Admin </button></Link>}
+					{ prop.isloggedin && prop.isUserEmail && <Link to="/admin/addcake"><button className="btn btn-outline-success m-2">Admin </button></Link>}
 					
 
 					{ prop.isloggedin && <Link to="/orders"><button className="btn btn-outline-success m-2">Orders</button></Link>}
