@@ -8,10 +8,10 @@ import Login from './component/Login.js'
 import Search from './component/Search.js'
 import CakeDetails from './component/CakeDetails.js'
 // import Cart from './component/Cart.js'
-import Checkout from './component/Checkout.js'
-import Orders from './component/Orders.js'
-import AddCake from './component/AddCake.js'
+
+
 import axios from 'axios';
+import Authorised from './component/Authorised.js'
 
 
 function App() {
@@ -20,8 +20,7 @@ function App() {
 		return request
 	})
 	var [login, setLogin] = useState(false)
-	var Cart = React.lazy(() => import('./component/Cart.js'));
-	Cart = <Suspense fallback={ <div> Loading..... </div>}><Cart></Cart></Suspense>
+	
 	
 	{/*var myphone = () => {
 		setLogin(true);
@@ -73,10 +72,7 @@ function App() {
 		    	<Route exact path="/login" component={Login}></Route>
 		    	<Route exact path="/search" component={Search}></Route>
 		    	<Route exact path="/cake/:cakeid" component={CakeDetails}></Route> 
-		    	<Route exact path="/cart/" >{Cart}</Route> 
-		    	<Route path="/checkout"><Checkout/></Route> 
-		    	<Route exact path="/orders" component={Orders}></Route> 
-		    	<Route exact path="/admin/addcake" component={AddCake}></Route> 
+		    	<Authorised isloggedin={login}>{Authorised} </Authorised>>
 		    	<Route exact path="/*" component={Pagenotfound}></Route>
 			</Switch>
 	    	</Router>

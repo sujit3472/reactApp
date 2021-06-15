@@ -1,6 +1,7 @@
 function CakeReducer(state ={
 	imagePath : '',
-	cakeadded : false
+	cakeadded : false,
+	cakeList  : []
 }, action) {
 
 	switch(action.type) {
@@ -40,6 +41,13 @@ function CakeReducer(state ={
 			state['isloading'] = false
 			state['cakeadded'] = false
 			return state
+		}
+
+		case "HOME_PAGE_CAKE" : {
+			state = { ...state}
+			state.cakeList = [];
+			state.cakeList = action.payload.cakeData;
+			return state;
 		}
 		
 		default : return state

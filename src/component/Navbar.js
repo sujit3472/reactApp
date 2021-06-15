@@ -59,7 +59,8 @@ let Navbar = (prop) => {
 		})
 		// localStorage.clear();
 		//prop.isloggedin = false;
-		console.log(" In logout",  isloggedin);
+		// console.log(" In logout",  isloggedin);
+		prop.history.push('/')
 	}
 
 	/*let changeButton = (event) => {

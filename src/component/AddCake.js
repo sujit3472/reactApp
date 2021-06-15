@@ -24,10 +24,10 @@ class AddCake extends Component {
 	uploadImage = (event) => {
 		event.preventDefault();
 		var ImageFile = document.getElementById('image');
-		console.log(ImageFile.files[0]);
+		//console.log(ImageFile.files[0]);
 		var formData = new FormData();
 		formData.append('file', ImageFile.files[0])
-		console.log(formData);
+		//console.log(formData);
 		this.props.dispatch(cartimageemiddleware(formData))
 
 		this.setState({
@@ -104,7 +104,7 @@ class AddCake extends Component {
 		{
 			alert("Please fill all the form fileds")
 		} else {
-			console.log({'name': this.state.name, 'price':this.state.price, 'weight' : this.state.weight, 'description' : this.state.description, 'type': this.state.type, 'flavour' : this.state.flavour, 'ingredients' : this.state.ingredients, 'image' : this.props.imagePath});
+			//console.log({'name': this.state.name, 'price':this.state.price, 'weight' : this.state.weight, 'description' : this.state.description, 'type': this.state.type, 'flavour' : this.state.flavour, 'ingredients' : this.state.ingredients, 'image' : this.props.imagePath});
 			this.props.dispatch({
 				type: 'ADD_CAKE',
 				payload : {'name': this.state.name, 'price':this.state.price, 'weight' : this.state.weight, 'description' : this.state.description, 'type': this.state.type, 'flavour' : this.state.flavour, 'ingredients' : this.state.ingredients, 'image' : this.props.imagePath}
@@ -188,15 +188,13 @@ AddCake = withRouter(AddCake)
 AddCake = connect(function (state, props) {
 	if(state.CakeReducer?.cakeadded  == true)
 	{
+		alert("Cake added successfully")
 		props.history.push('/')
 	} else {
 		return{
 			isloading : state.CakeReducer.isloading,
 			imagePath : state.CakeReducer.imagePath,
-			
-
 		}
-
 	}
 })(AddCake)
 
