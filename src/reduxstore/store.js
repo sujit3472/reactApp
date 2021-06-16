@@ -16,10 +16,23 @@ let middle = store=>next=>action=> {
 var sagaMiddleware = createSaga();
 
 var reducer = combineReducers({AuthReducer, CartReducer, CakeReducer})
+
+function saveToLocalStorage(state) {
+	
+	try {
+    	const serialisedState = JSON.stringify(state);
+    	localStorage.setItem("persistantState", serialisedState);
+  	} catch (e) {
+    	console.warn(e);
+  	}
+}
+
 let store   = createStore(reducer, applyMiddleware(middle, thunk, sagaMiddleware))
 
 
 sagaMiddleware.run(RootSaga);
+
+store.subscribe(() => saveToLocalStorage(store.getState()));
 
 /*store.subscribe(() => {
     if (store.getState().action.indexOf('SETCARTDATA') !== -1) {

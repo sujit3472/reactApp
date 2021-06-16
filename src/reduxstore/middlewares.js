@@ -16,6 +16,7 @@ export function loginmiddleware (data) {
 			
 			localStorage.setItem('userAccessToken', response.data.token);
 			localStorage.setItem('userEmailId', response.data.email);
+			localStorage.setItem('userName', response.data.name);
 			// localStorage.userAccessToken = response.data.token;
 			if(response.data.message) {
 				alert(response.data.message);
@@ -38,6 +39,24 @@ export function loginmiddleware (data) {
 						username : response.data.name
 					}
 				})
+
+				axios({
+					url:process.env.REACT_APP_BASE_URL+'/cakecart',
+					method:"post",
+					data:JSON,
+				}).then((response)=>{
+					
+					if(response.data.data) {
+						dispatch({
+							type:"SETCARTDATA",
+							payload : {
+								cart : response.data.data
+							}
+						});
+					}
+				},(error)=>{
+					console.log(error);
+				});
 
 			}
 		}, (error) => {

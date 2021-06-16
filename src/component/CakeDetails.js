@@ -61,8 +61,7 @@ function CakeDetails(props) {
 CakeDetails = withRouter(CakeDetails)
 
 CakeDetails = connect(function (state, props) {
-	// alert("in cake details props" + JSON.stringify(state.CartReducer)  )
-	// alert(state.CartReducer.cartsucess)
+	
 	if(state.CartReducer?.cartsucess) {
 		state.CartReducer.cartsucess = false;
 		state.CartReducer.isDataloading = false;

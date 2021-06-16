@@ -2,7 +2,9 @@ function CartReducer(state ={
 	cart : [],
 	totalPrice : 0,
 	cartsucess : false,
-	cartitemremovesucess : false
+	cartitemremovesucess : false,
+	cartCount : 0,
+	isDataloading : false
 
 }, action) {
 
@@ -26,6 +28,7 @@ function CartReducer(state ={
 		   			item.quantity = (item.quantity + 1)
 		   		} else {
 		    		state.totalPrice += item.price;
+		    		state.cartCount = parseInt(state.cartCount) + 1;
 				}
 		    });
 			}
@@ -46,6 +49,7 @@ function CartReducer(state ={
 			state = {...state}
 			state.cart = [];
 			state.totalPrice = 0;
+			state.cartCount  = 0;
 			return state
 		}
 		case "REMOVECART" : {
@@ -79,19 +83,21 @@ function CartReducer(state ={
 		   	}
 			state.cart = state.cart.filter((item) => item.cakeid !== action.payload.cakeid);
 			state['cartitemremovesucess'] = true;
+			state.cartCount = parseInt(state.cartCount) - 1;
 			return state
 		}
 		case "SETCARTDATA" : {
 			state = {...state}
 			state.totalPrice = 0
-			//console.log(action.payload);
+			
 			state.cart = []
 		   	{action.payload.cart && action.payload.cart.map((item) => { 
-		   		//console.log(item.price);
-		    	state.totalPrice += item.price;
+		   		state.totalPrice += item.price;
 		    });
 			}
 			state.cart = action.payload.cart
+
+			state.cartCount = parseInt(state.cart.length);
 			return state
 		}
 		default : return state

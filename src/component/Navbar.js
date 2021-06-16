@@ -13,7 +13,15 @@ let Navbar = (prop) => {
 		[prop.isloggedin],
 	);
 	
+	var [cartCount, setCartCount] = useState(prop.cartCount);
 
+	useEffect(() => {
+			
+	  	const jsonCartCount = localStorage.getItem("persistantState");
+	  	const localStorageCartCount = JSON.parse(jsonCartCount);
+	  	setCartCount(localStorageCartCount.CartReducer.cartCount)
+		
+	}, []); 
 
 	//let [loginbtn, setLogin] = useState("Login");
 	// console.log(prop);
@@ -72,7 +80,7 @@ let Navbar = (prop) => {
 	}*/
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
-			<Link to="/"><button className="navbar-brand" >{prop.details.projectname } {prop.username }</button></Link>
+			<Link to="/"><button className="navbar-brand" >{prop.details.projectname }</button></Link>
 			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>
 			</button>
@@ -83,7 +91,7 @@ let Navbar = (prop) => {
 					<Link to="/"><button className="nav-link">Home <span className="sr-only">(current)</span></button></Link>
 					</li>
 					<li className="nav-item">
-					<a className="nav-link" href="#">Welcome {prop.name}</a>
+					<a className="nav-link" href="#">Welcome  {prop.username }</a>
 					</li>
 					<li className="nav-item">
 					<a className="nav-link" href="#">{prop.children}</a>
@@ -95,7 +103,7 @@ let Navbar = (prop) => {
 					<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={searchTest}/>
 					{searchstring}
 					<button className="btn btn-outline-success my-2 my-sm-0 m-2" type="submit" onClick={search}>Search</button>
-					{ prop.isloggedin && <Link to="/cart"><button className="btn btn-outline-success m-2"><i className="fa fa-shopping-cart" aria-hidden="true"></i></button></Link>}
+					{ prop.isloggedin && <Link to="/cart"><button className="btn btn-outline-success m-2"><i className="fa fa-shopping-cart" aria-hidden="true"></i> ({ parseInt( prop.cartCount)})</button></Link>}
 
 					{ prop.isloggedin && prop.isUserEmail && <Link to="/admin/addcake"><button className="btn btn-outline-success m-2">Admin </button></Link>}
 					
@@ -126,7 +134,9 @@ export default connect((state) =>{
 	}
 	return {
 		isloggedin: state.AuthReducer.isloggedin,
-		username: state.AuthReducer.username,
-		isUserEmail : isUserEmail
+		// username: state.AuthReducer.username,
+		username: state.AuthReducer.username ? state.AuthReducer.username : localStorage.getItem('userName'),
+		isUserEmail : isUserEmail,
+		cartCount : state.CartReducer.cartCount
 	}
 })(Navbar)

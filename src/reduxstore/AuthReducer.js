@@ -1,6 +1,6 @@
 function AuthReducer(state ={
 	isloggedin:localStorage.getItem('userAccessToken')?true:false,
-	username:undefined,
+	username:'',
 	token:localStorage.getItem('userAccessToken')
 }, action) {
 
@@ -27,9 +27,10 @@ function AuthReducer(state ={
 		} 
 		case "LOGOUT" : {
 			state = {...state}
-			localStorage.clear()
+			
 			state.isloggedin = false
 			state.username = undefined
+			localStorage.clear()
 			//alert("empty token" + state.token);
 			return state
 		}

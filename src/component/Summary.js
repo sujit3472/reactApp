@@ -1,7 +1,23 @@
 import { connect } from "react-redux"
 import {withRouter, Link} from "react-router-dom"
+import {useState, useEffect} from "react"
 function Summary(props) {
-	console.log(props.totalPrice);
+	
+	var [cart, setCartData] = useState(props.cart);
+	var [totalPrice, setPrice] = useState(props.totalPrice);
+
+	useEffect(() => {
+		if(props.cart.length <= 0){
+			
+		  	const json = localStorage.getItem("persistantState");
+		  	const localStorageData = JSON.parse(json);
+		  
+			setCartData(localStorageData.CartReducer.cart)
+			setPrice(localStorageData.CartReducer.totalPrice)
+		} 
+	}, []); 
+	
+
 	return (
 		<>
 			<h1>In Summary Page</h1>
@@ -20,7 +36,7 @@ function Summary(props) {
 					               </tr>
 					            </thead>
 					            <tbody data-order-summary-section="line-items">
-					            	{props.cart &&  props.cart.map((each, index) =>  {
+					            	{cart &&  cart.map((each, index) =>  {
 					            		return (
 	            			               	<tr key={index}>
 	            								<td>
@@ -45,7 +61,7 @@ function Summary(props) {
 									    	Total Price
 									  	</th>
 									  	<td >
-									    	{ props.totalPrice &&  props.totalPrice}
+									    	{ totalPrice &&  totalPrice}
 									    </td>
 									</tr>
 								</tfoot>
