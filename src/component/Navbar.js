@@ -17,9 +17,16 @@ let Navbar = (prop) => {
 
 	useEffect(() => {
 		if(cartCount <= 0) {
+
 		  	const jsonCartCount = localStorage.getItem("persistantState");
 		  	const localStorageCartCount = JSON.parse(jsonCartCount);
-		  	setCartCount(localStorageCartCount.CartReducer.cartCount)
+		  	console.log(localStorageCartCount);
+		  	if(localStorageCartCount) {
+		  		setCartCount(localStorageCartCount.CartReducer ? localStorageCartCount.CartReducer.cartCount : 0)
+		  	} 
+		  	else {
+ 		  		setCartCount(0)
+		  	}
 		}	
 		
 	}, []); 
